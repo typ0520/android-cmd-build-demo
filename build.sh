@@ -2,11 +2,11 @@
 
 #5.0 - 21 可以加载100个classesN.dex
 #5.1 - 22 可以加载100个classesN.dex
-#6.0 - 23 可以加载>1000个classesN.dex
-#7.0 - 24 可以加载>1000个classesN.dex
-#7.1 - 25 可以加载>1000个classesN.dex
+#6.0 - 23 可以加载>3000个classesN.dex
+#7.0 - 24 可以加载>3000个classesN.dex
+#7.1 - 25 可以加载>3000个classesN.dex
 
-MAX_CLASSES_N_DEX=3000
+MAX_CLASSES_N_DEX=110
 if [ ! -d dex ];then
 	mkdir dex
 fi
@@ -61,7 +61,7 @@ mv bin/app-debug-unsigned.apk ./dex
 cd ./dex
 
 i=2
-while [[ -f classes${i}.dex ]]; do
+while [[ -f classes${i}.dex ]] && [[ i -le $MAX_CLASSES_N_DEX ]]; do
 	aapt add -f app-debug-unsigned.apk classes${i}.dex
 	let i=i+1
 done
