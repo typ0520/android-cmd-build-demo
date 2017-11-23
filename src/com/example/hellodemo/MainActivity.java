@@ -3,9 +3,9 @@ package com.example.hellodemo;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import com.example.hellodemo.R;
-
 
 public class MainActivity extends Activity {
 
@@ -14,12 +14,33 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testLoadClass();
+            }
+        });
+
+        findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MultiDex.install(getApplicationContext());
+                testLoadClass();
+
+                Button btn = (Button) findViewById(R.id.btn);
+                btn.setEnabled(false);
+            }
+        });
+    }
+
+    private void testLoadClass() {
         TextView tv = (TextView) findViewById(R.id.tv);
         int index = 1;
-        for (int i = 2; i <= 1000; i++) {
+        for (int i = 2; i <= 2000; i++) {
             try {
                 Class.forName("test.Test" + i);
-            } catch (ClassNotFoundException e) {
+            } catch (Throwable e) {
                 e.printStackTrace();
                 break;
             }

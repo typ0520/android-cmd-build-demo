@@ -168,7 +168,9 @@ public class MultiDexExtractor {
         final List<ExtractedDex> files = new ArrayList<ExtractedDex>(totalDexNumber - 1);
 
 
-        for (int secondaryNumber = (MultiDex.is21or22() ? 100 : 2); secondaryNumber <= totalDexNumber; secondaryNumber++) {
+
+
+        for (int secondaryNumber = getSecondaryNumber(); secondaryNumber <= totalDexNumber; secondaryNumber++) {
             String fileName = extractedFilePrefix + secondaryNumber + EXTRACTED_SUFFIX;
             ExtractedDex extractedFile = new ExtractedDex(dexDir, fileName);
             if (extractedFile.isFile()) {
@@ -194,6 +196,10 @@ public class MultiDexExtractor {
         }
 
         return files;
+    }
+
+    private static int getSecondaryNumber() {
+        return MultiDex.is21or22() ? 100 : 2;
     }
 
 
@@ -242,7 +248,7 @@ public class MultiDexExtractor {
         final ZipFile apk = new ZipFile(sourceApk);
         try {
 
-            int secondaryNumber = 2;
+            int secondaryNumber = getSecondaryNumber();
 
             ZipEntry dexFile = apk.getEntry(DEX_PREFIX + secondaryNumber + DEX_SUFFIX);
             while (dexFile != null) {
@@ -311,9 +317,9 @@ public class MultiDexExtractor {
         SharedPreferences.Editor edit = prefs.edit();
         edit.putLong(KEY_TIME_STAMP, timeStamp);
         edit.putLong(KEY_CRC, crc);
-        edit.putInt(KEY_DEX_NUMBER, extractedDexes.size() + 1);
+        edit.putInt(KEY_DEX_NUMBER, extractedDexes.size() + (MultiDex.is21or22() ? 99 : 1));
 
-        int extractedDexId = 2;
+        int extractedDexId = getSecondaryNumber();
         for (ExtractedDex dex : extractedDexes) {
             edit.putLong(KEY_DEX_CRC + extractedDexId, dex.crc);
             edit.putLong(KEY_DEX_TIME + extractedDexId, dex.lastModified());

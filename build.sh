@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#5.0 - 21 可以加载100个classesN.dex
-#5.1 - 22 可以加载100个classesN.dex
+#5.0 - 21 可以加载99个classesN.dex
+#5.1 - 22 可以加载99个classesN.dex
 #6.0 - 23 可以加载>3000个classesN.dex
 #7.0 - 24 可以加载>3000个classesN.dex
 #7.1 - 25 可以加载>3000个classesN.dex
